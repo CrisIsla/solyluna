@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
     barCode: {
-        type: BigInt,
+        type: Number,
         required: true,
         unique: true
     },
