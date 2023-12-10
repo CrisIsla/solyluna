@@ -1,7 +1,6 @@
 const Product = require('../models/productModel')
 
 // Get all products
-
 const getProducts = async (req, res) => {
     try {
         const products = await Product.find()
@@ -11,9 +10,8 @@ const getProducts = async (req, res) => {
     }
 }
 
-// Get one product
-
-const getProduct = async (req, res) => {
+// Get one product via barCode
+const getProductbybarCode = async (req, res) => {
     try {
         const product = await Product.find(req.params)
         res.status(200).json(product)
@@ -23,7 +21,6 @@ const getProduct = async (req, res) => {
 }
 
 // Create a new product
-
 const createProduct = async (req, res) => {
     const product = new Product({
         barCode: req.body.barCode,
@@ -40,8 +37,7 @@ const createProduct = async (req, res) => {
 }
 
 // Delete a product
-
-const deleteProduct = async (req, res) => {
+const deleteProductbybarCode = async (req, res) => {
     try {
         await Product.deleteOne(req.params)
         res.status(200).json({ message: `deleted product with barCode ${req.params.barCode}` })
@@ -51,15 +47,14 @@ const deleteProduct = async (req, res) => {
 }
 
 // Update a product
-
 const updateProduct = async (req, res) => {
-    
+
 }
 
 module.exports(
     getProducts,
-    getProduct,
+    getProductbybarCode,
     createProduct,
-    deleteProduct,
+    deleteProductbybarCode,
     updateProduct
 )
