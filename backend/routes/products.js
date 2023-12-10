@@ -13,8 +13,13 @@ router.get('/', async (req, res) => {
 });
 
 // Get a specific product
-router.get('/:id', (req, res) => {
-    res.send(`GET method on products route for product ${req.params.id}`);
+router.get('/:barCode', async (req, res) => {
+    try {
+        const product = await Product.find(req.params)
+        res.status(200).json(product)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
 });
 
 // Create a new product
