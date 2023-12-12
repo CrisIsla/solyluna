@@ -39,7 +39,10 @@ const createProduct = async (req, res) => {
 // Delete a product
 const deleteProductbybarCode = async (req, res) => {
     try {
-        await Product.deleteOne(req.params)
+        const product = await Product.findOneAndDelete(req.params)
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found'})
+        }
         res.status(200).json({ message: `deleted product with barCode ${req.params.barCode}` })
     } catch (err) {
         res.status(400).json({ message: err.message })
@@ -47,14 +50,22 @@ const deleteProductbybarCode = async (req, res) => {
 }
 
 // Update a product
-const updateProduct = async (req, res) => {
-
+const updateProductbybarCode = async (req, res) => {
+    try {
+        const product = await Product.findOneAndUpdate(req.params, req.body)
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' })
+        }
+        res.status(200).json(product)
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
 }
 
-module.exports(
+module.exports = {
     getProducts,
     getProductbybarCode,
     createProduct,
     deleteProductbybarCode,
-    updateProduct
-)
+    updateProductbybarCode
+}

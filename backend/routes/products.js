@@ -5,7 +5,7 @@ const {
     getProductbybarCode,
     createProduct,
     deleteProductbybarCode,
-    updateProduct
+    updateProductbybarCode
 } = require('../controllers/productController')
 
 // Get all products
@@ -20,8 +20,8 @@ router.post('/', createProduct)
 // Delete a specific product by barCode
 router.delete('/:barCode', deleteProductbybarCode)
 
-// Update a product (we need to decide if we want to use PUT or PATCH)
-router.put('/:id', updateProduct)
+// Update a product
+router.patch('/:barCode', updateProductbybarCode)
 
 // Export the router so it can be used in other files
 module.exports = router
